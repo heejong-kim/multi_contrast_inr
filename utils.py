@@ -6,7 +6,7 @@ import torch.nn as nn
 from math import log, sqrt
 from skimage.metrics import structural_similarity, peak_signal_noise_ratio
 import lpips
-from loss_functions import MILossGaussian
+from .loss_functions import MILossGaussian
 import matplotlib.pyplot as plt 
 import nibabel as nib
 import nibabel.processing as nip
