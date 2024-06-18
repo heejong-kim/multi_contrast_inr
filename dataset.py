@@ -31,7 +31,7 @@ class _BaseDataset(Dataset):
 class MultiModalDataset(_BaseDataset):
     r""" Dataset of view1/contrast1 and view2/contrast2 T2w image sequence of the same patient.
     These could be e.g. an view1 and view2 T2w brain image, an view1 and view2 spine image, etc.
-    However, both images must be registered to one another - the daataset already assumes this.
+    However, both images must be registered to one another - the dataset already assumes this.
     Args:
         root (string): Root directory where the dataset should be saved.
         transform (callable, optional): A function/transform that takes in an
