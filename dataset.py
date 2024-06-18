@@ -6,7 +6,7 @@ import nibabel as nib
 import numpy as np
 from torch.utils.data import Dataset
 import torch.nn.functional as F
-from dataset_utils import norm_grid, get_image_coordinate_grid_nib
+from .dataset_utils import norm_grid, get_image_coordinate_grid_nib
 
 class _BaseDataset(Dataset):
     """Base dataset class"""
