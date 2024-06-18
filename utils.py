@@ -46,21 +46,23 @@ class input_mapping(nn.Module):
         return torch.cat([torch.sin(x_proj), torch.cos(x_proj)], dim=-1)
 
 
-def compute_metrics(gt, pred, mask, lpips_loss, device):
+def compute_metrics(gt, pred, mask, lpips_loss, device, use_mask=False):
 
-    if type(mask) == torch.Tensor:
-        mask = mask.float().cpu().numpy()
+    if use_mask:
 
-    assert mask.max() == 1.0, 'Mask Format incorrect.'
-    assert mask.min() == 0.0, 'Mask Format incorrect.'
+        if type(mask) == torch.Tensor:
+            mask = mask.float().cpu().numpy()
 
-    gt -= gt[mask == 1].min()
-    gt /= gt.max()
-    gt *= mask
+        assert mask.max() == 1.0, 'Mask Format incorrect.'
+        assert mask.min() == 0.0, 'Mask Format incorrect.'
 
-    pred -= pred[mask == 1].min()
-    pred /= pred.max()
-    pred *= mask
+        gt -= gt[mask == 1].min()
+        gt /= gt.max()
+        gt *= mask
+
+        pred -= pred[mask == 1].min()
+        pred /= pred.max()
+        pred *= mask
 
     ssim = structural_similarity(gt, pred, data_range=1)
     psnr = peak_signal_noise_ratio(gt, pred, data_range=1)
