@@ -124,20 +124,20 @@ def mutual_information(hgram):
 
 
 # from: https://matthew-brett.github.io/teaching/mutual_information.html
-def compute_mi_hist(img1, img2, mask, bins=32):
-
-    if type(mask) == torch.Tensor:
-        mask = mask.float().cpu().numpy()
-
+def compute_mi_hist(img1, img2, mask, bins=32, use_mask=False):
     if type(img1) == torch.Tensor():
         img1 = img1.cpu().numpy()
 
     if type(img2)== torch.Tensor():
-        img2 = img2.cpu().numpy()  
+        img2 = img2.cpu().numpy()
 
-    # only inside of the brain
-    img1 = img1[mask==1]
-    img2 = img2[mask==1]
+    if use_mask:
+        if type(mask) == torch.Tensor:
+            mask = mask.float().cpu().numpy()
+
+        # only inside of the brain
+        img1 = img1[mask==1]
+        img2 = img2[mask==1]
 
     hist_2d, _, _= np.histogram2d(
         img1.ravel(),
