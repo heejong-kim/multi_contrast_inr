@@ -185,8 +185,9 @@ class MultiModalDataset(_BaseDataset):
         labels_contrast2 = contrast2_dict["intensity_norm"]        
         mask_contrast1 = contrast1_mask_dict["intensity_norm"].bool()
         mask_contrast2 = contrast2_mask_dict["intensity_norm"].bool()
-        labels_contrast1_stack = torch.cat((torch.ones(labels_contrast1.shape)*-1, labels_contrast1), dim=1)
-        labels_contrast2_stack = torch.cat((labels_contrast2, torch.ones(labels_contrast2.shape)*-1), dim=1) 
+        # TODO: this is different from original implementation
+        labels_contrast1_stack = torch.cat((labels_contrast1, torch.ones(labels_contrast1.shape)*-1), dim=1)
+        labels_contrast2_stack = torch.cat((torch.ones(labels_contrast2.shape)*-1, labels_contrast2), dim=1)
 
         # assemble the data and labels
         self.data = torch.cat((data_contrast1, data_contrast2), dim=0)
